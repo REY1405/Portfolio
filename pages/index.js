@@ -6,10 +6,33 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
 /**
- * LiveDemo is client-only (uses timers/window). Dynamically import it with SSR disabled
- * and wrap in a ClientOnly guard to avoid hydration/render issues.
+ * Safe dynamic import:
+ * - attempts to load default export
+ * - then tries a named export LiveDemo
+ * - otherwise falls back to a harmless placeholder component
+ *
+ * This prevents React from receiving an object instead of a component.
  */
-const LiveDemo = dynamic(() => import("../components/LiveDemo"), { ssr: false });
+const LiveDemo = dynamic(
+  () =>
+    import("../components/LiveDemo").then((mod) => {
+      // Try default -> named -> null-component
+      if (mod && (mod.default || mod.LiveDemo)) {
+        return mod.default || mod.LiveDemo;
+      }
+      // fallback harmless component
+      return function PlaceholderLiveDemo() {
+        return (
+          <div className="py-12">
+            <div className="p-6 bg-white rounded-2xl shadow border text-center text-slate-600">
+              Live demo unavailable.
+            </div>
+          </div>
+        );
+      };
+    }),
+  { ssr: false }
+);
 
 /* ClientOnly: renders children only after client mount to avoid hydration mismatches */
 function ClientOnly({ children, fallback = null }) {
@@ -313,7 +336,7 @@ function EmbeddedGoogleForm() {
       <div
         style={{
           position: "relative",
-          paddingBottom: "120%",
+          paddingBottom: "120%", // controls aspect ratio of iframe
           height: 0,
           overflow: "hidden",
           borderRadius: 12,
@@ -325,15 +348,18 @@ function EmbeddedGoogleForm() {
           width="100%"
           height="1200"
           style={{ position: "absolute", top: 0, left: 0, border: 0 }}
+          frameBorder="0"
+          marginHeight="0"
+          marginWidth="0"
+          title="Contact form — Google Form"
           className="rounded-xl"
-          title="Contact form"
         />
       </div>
 
       <div className="mt-3 text-sm text-slate-500">
-        If it doesn’t load,{" "}
-        <a href={fallbackUrl} className="text-indigo-600" target="_blank" rel="noreferrer">
-          open the form here
+        If the form doesn't load here,{" "}
+        <a href={fallbackUrl} target="_blank" rel="noreferrer" className="text-indigo-600">
+          open it in a new tab
         </a>
         .
       </div>
