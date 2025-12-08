@@ -5,8 +5,8 @@ import { useState } from "react";
 
 const projects = [
   {
-    title: "Kubernetes NGINX (KinD)",
-    desc: "K8s manifests with Kustomize overlays, sealed-secrets, and GitHub Actions KinD tests.",
+    title: "Kubernetes NGINX",
+    desc: "K8s manifests with Kustomize overlays, sealed-secrets, and GitHub Actions tests.",
     repo: "#",
   },
   {
@@ -122,28 +122,27 @@ export default function Home() {
 
             <div className="mt-6 space-y-8">
               <div className="p-6 bg-white rounded-2xl shadow border">
-                <h3 className="text-xl font-semibold">DevOps Engineer — OpsTree Solutions</h3>
-                <p className="text-sm text-slate-500 mt-1">2021 — 2024</p>
+                <h3 className="text-xl font-semibold">Sr.DevOps Specialist — OpsTree Solutions</h3>
+                <p className="text-sm text-slate-500 mt-1">2023 — 2025</p>
 
                 <ul className="list-disc ml-6 mt-3 space-y-2 text-slate-700">
-                  <li>Designed and maintained scalable CI/CD pipelines using GitHub Actions & Jenkins.</li>
-                  <li>Built and managed Kubernetes workloads with KinD, Kustomize, Karpenter, and Ingress controllers.</li>
+                  <li>Automated microservice deployments on Kubernetes using GitHub Actions & GitHub Runners, reducing deployment failures by 40% and accelerating release cycles by 50%.</li>
+                  <li>Built and managed Kubernetes workloads with Kustomize, Karpenter, and Ingress controllers.</li>
                   <li>Implemented observability stack using SigNoz & OpenTelemetry for metrics, logs, and tracing.</li>
                   <li>Optimized AWS infrastructure with cost-efficient networking, autoscaling, and caching strategies.</li>
                   <li>Automated deployment lifecycles following GitOps practices for multi-environment releases.</li>
+                  <li>Implemented AWS IAM & SSO integration with Azure AD, improving security and reducing access-related incidents by 60%.</li> 
                 </ul>
               </div>
 
               <div className="p-6 bg-white rounded-2xl shadow border">
-                <h3 className="text-xl font-semibold">SRE — Publicis Sapient</h3>
-                <p className="text-sm text-slate-500 mt-1">2024 — Present</p>
+                <h3 className="text-xl font-semibold">Sr.Analyst — Capgemini</h3>
+                <p className="text-sm text-slate-500 mt-1">2021 — 2023</p>
 
                 <ul className="list-disc ml-6 mt-3 space-y-2 text-slate-700">
-                  <li>Improved service reliability using SLO/SLI implementation and error budget monitoring.</li>
-                  <li>Automated incident workflows reducing MTTR and enhancing on-call response efficiency.</li>
-                  <li>Managed rollout strategies using GitOps, progressive delivery, and cloud-native tooling.</li>
-                  <li>Enhanced platform monitoring using dashboards, alert tuning, and proactive failure analysis.</li>
-                  <li>Led cost-optimization initiatives across compute, storage, and traffic layers in AWS.</li>
+                  <li>Provisioned AWS Services like EC2, EBS Encryption, Image Creation, S3, Route53, Inbound/Outbound Rules, DNS, ECS, EFS, CloudWatch, IAM, VPC, Auto-Scaling, NAT & Security Groups..</li>
+                  <li>Automated infrastructure as code (IaC) using Terraform & Ansible, ensuring repeatable deployments.</li>
+                  <li>Worked with cross-functional teams to troubleshoot and resolve production issues. Ticket handling in Service now ticketing tool for the issues and working for their RCA and resolution.</li>
                 </ul>
               </div>
             </div>
