@@ -1,11 +1,26 @@
+// pages/index.js
 import Head from "next/head";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 
-const LiveDemo = dynamic(() => import('../components/LiveDemo'), { ssr: false });
+/**
+ * LiveDemo is client-only (uses timers/window). Dynamically import it with SSR disabled
+ * and wrap in a ClientOnly guard to avoid hydration/render issues.
+ */
+const LiveDemo = dynamic(() => import("../components/LiveDemo"), { ssr: false });
 
+/* ClientOnly: renders children only after client mount to avoid hydration mismatches */
+function ClientOnly({ children, fallback = null }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted ? children : fallback;
+}
+
+/* --------------------------
+   Page content starts here
+   -------------------------- */
 
 const projects = [
   {
@@ -26,7 +41,7 @@ const projects = [
 ];
 
 export default function Home() {
-  // put your real Medium URL here if you want
+  // add your Medium profile if you want
   const mediumUrl = "https://medium.com/";
 
   return (
@@ -44,17 +59,18 @@ export default function Home() {
         <Header mediumUrl={mediumUrl} />
 
         <main className="max-w-6xl mx-auto px-6">
+          {/* HERO */}
           <section className="grid md:grid-cols-2 gap-8 items-center py-12">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="fade-up"
             >
               <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-                Hi, I’m <span style={{ color: "#6366F1" }}>Rishi</span>. I make cloud
-                systems reliable and observable.
+                Hi, I’m <span className="text-indigo-600">Rishi</span>. I make cloud systems
+                reliable and observable.
               </h1>
+
               <p className="mt-4 text-lg text-slate-600">
                 I focus on Kubernetes, GitOps, CI/CD automation, observability and cost
                 optimisation. Below are projects with code and infra you can clone.
@@ -93,12 +109,13 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="hero-card p-6 rounded-2xl bg-white shadow floating"
+              className="p-6 bg-white rounded-2xl shadow"
             >
               <ProfileCard />
             </motion.div>
           </section>
 
+          {/* PROJECTS */}
           <section id="projects" className="py-8">
             <h2 className="text-2xl font-bold">Projects</h2>
             <div className="mt-6 grid md:grid-cols-3 gap-6">
@@ -120,10 +137,12 @@ export default function Home() {
             </div>
           </section>
 
-          {/* --- ADD LIVE DEMO HERE --- */}
-          <LiveDemo />          
+          {/* LIVE DEMO (client-only) */}
+          <ClientOnly fallback={<div className="py-12">Loading demo…</div>}>
+            <LiveDemo />
+          </ClientOnly>
 
-          {/* Work Experience section */}
+          {/* EXPERIENCE */}
           <section id="experience" className="py-12">
             <h2 className="text-2xl font-bold">Work Experience</h2>
 
@@ -133,12 +152,14 @@ export default function Home() {
                 <p className="text-sm text-slate-500 mt-1">2023 — 2025</p>
 
                 <ul className="list-disc ml-6 mt-3 space-y-2 text-slate-700">
-                  <li>Automated microservice deployments on Kubernetes using GitHub Actions & GitHub Runners, reducing deployment failures by 40% and accelerating release cycles by 50%.</li>
+                  <li>
+                    Automated microservice deployments on Kubernetes using GitHub Actions & GitHub Runners, reducing deployment failures by 40% and accelerating release cycles by 50%.
+                  </li>
                   <li>Built and managed Kubernetes workloads with Kustomize, Karpenter, and Ingress controllers.</li>
                   <li>Implemented observability stack using SigNoz & OpenTelemetry for metrics, logs, and tracing.</li>
                   <li>Optimized AWS infrastructure with cost-efficient networking, autoscaling, and caching strategies.</li>
                   <li>Automated deployment lifecycles following GitOps practices for multi-environment releases.</li>
-                  <li>Implemented AWS IAM & SSO integration with Azure AD, improving security and reducing access-related incidents by 60%.</li> 
+                  <li>Implemented AWS IAM & SSO integration with Azure AD, improving security and reducing access-related incidents by 60%.</li>
                 </ul>
               </div>
 
@@ -147,18 +168,21 @@ export default function Home() {
                 <p className="text-sm text-slate-500 mt-1">2021 — 2023</p>
 
                 <ul className="list-disc ml-6 mt-3 space-y-2 text-slate-700">
-                  <li>Provisioned AWS Services like EC2, EBS Encryption, Image Creation, S3, Route53, Inbound/Outbound Rules, DNS, ECS, EFS, CloudWatch, IAM, VPC, Auto-Scaling, NAT & Security Groups..</li>
+                  <li>
+                    Provisioned AWS Services like EC2, EBS (encryption), AMI creation, S3, Route53, ECS, EFS, CloudWatch, IAM, VPC, Auto-Scaling, NAT & Security Groups.
+                  </li>
                   <li>Automated infrastructure as code (IaC) using Terraform & Ansible, ensuring repeatable deployments.</li>
-                  <li>Worked with cross-functional teams to troubleshoot and resolve production issues. Ticket handling in Service now ticketing tool for the issues and working for their RCA and resolution.</li>
+                  <li>Collaborated with cross-functional teams to troubleshoot and resolve production issues; performed RCA via ServiceNow ticketing.</li>
                 </ul>
               </div>
             </div>
           </section>
 
-          <section id="contact" className="py-8">
+          {/* CONTACT */}
+          <section id="contact" className="py-12">
             <h2 className="text-2xl font-bold">Contact</h2>
             <p className="text-slate-600 mt-2">
-              Want to hire or collaborate? Use the embedded Google Form below or email me at{" "}
+              Want to hire or collaborate? Use the Google Form below or email me at{" "}
               <a className="text-indigo-600" href="mailto:kathal.rishi@gmail.com">
                 kathal.rishi@gmail.com
               </a>
@@ -167,11 +191,12 @@ export default function Home() {
 
             <div className="mt-6 max-w-3xl">
               <EmbeddedGoogleForm />
+
               <div className="mt-4">
                 <a
                   href="/resume.pdf"
                   download
-                  className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg shadow"
+                  className="bg-indigo-600 text-white px-4 py-2 rounded-lg shadow"
                 >
                   📄 Download My Resume
                 </a>
@@ -182,7 +207,7 @@ export default function Home() {
           <footer className="py-12 text-center text-sm text-slate-400">
             © {new Date().getFullYear()} Rishi Kathal — Built with ❤️ • Hosted on Vercel •{" "}
             <a href={mediumUrl} target="_blank" rel="noreferrer" className="text-indigo-600">
-              Medium
+              Medium Blog
             </a>
           </footer>
         </main>
@@ -191,10 +216,10 @@ export default function Home() {
   );
 }
 
-/* ---------------------------
-   Header component (Avatar + Nav)
-   shows image from /public/rishi.jpg if available, falls back to RK
-   --------------------------- */
+/* --------------------------
+   Header and Avatar
+   -------------------------- */
+
 function Header({ mediumUrl }) {
   return (
     <header className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
@@ -216,7 +241,7 @@ function Header({ mediumUrl }) {
         <a href="#contact" className="text-sm hover:underline">
           Contact
         </a>
-        <a href={mediumUrl} target="_blank" rel="noreferrer" className="text-sm hover:underline">
+        <a href={mediumUrl} className="text-sm hover:underline" target="_blank" rel="noreferrer">
           Medium
         </a>
         <a
@@ -232,7 +257,6 @@ function Header({ mediumUrl }) {
   );
 }
 
-/* Avatar: tries to load /rishi.jpg; if it fails, shows RK fallback */
 function Avatar() {
   const [imgError, setImgError] = useState(false);
 
@@ -242,11 +266,11 @@ function Avatar() {
         <img
           src="/rishi.jpg"
           alt="Rishi Kathal"
-          className="w-16 h-16 rounded-full object-cover shadow"  // WAS w-12 h-12
+          className="w-20 h-20 rounded-full object-cover object-top shadow"
           onError={() => setImgError(true)}
         />
       ) : (
-        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-indigo-600 to-cyan-400 text-white font-bold text-xl">
+        <div className="w-20 h-20 rounded-full flex items-center justify-center bg-gradient-to-br from-indigo-600 to-cyan-400 text-white font-bold text-xl">
           RK
         </div>
       )}
@@ -254,8 +278,9 @@ function Avatar() {
   );
 }
 
-
-/* ProfileCard: small highlighted box next to hero */
+/* --------------------------
+   Small profile card
+   -------------------------- */
 function ProfileCard() {
   return (
     <>
@@ -274,7 +299,9 @@ function ProfileCard() {
   );
 }
 
-/* EmbeddedGoogleForm: iframe embed with fallback link */
+/* --------------------------
+   Google Form embed
+   -------------------------- */
 function EmbeddedGoogleForm() {
   const formEmbeddedUrl =
     "https://docs.google.com/forms/d/e/1FAIpQLScK6_u2NRVkJeVnYWEAOJetln_5HPfcwQWGt_tLe0YtfJLeVw/viewform?embedded=true";
@@ -296,22 +323,17 @@ function EmbeddedGoogleForm() {
         <iframe
           src={formEmbeddedUrl}
           width="100%"
-          height="1000"
+          height="1200"
           style={{ position: "absolute", top: 0, left: 0, border: 0 }}
-          frameBorder="0"
-          marginHeight="0"
-          marginWidth="0"
-          title="Contact form"
           className="rounded-xl"
-        >
-          Loading…
-        </iframe>
+          title="Contact form"
+        />
       </div>
 
       <div className="mt-3 text-sm text-slate-500">
-        If the form doesn't load here,{" "}
-        <a href={fallbackUrl} target="_blank" rel="noreferrer" className="text-indigo-600">
-          open it in a new tab
+        If it doesn’t load,{" "}
+        <a href={fallbackUrl} className="text-indigo-600" target="_blank" rel="noreferrer">
+          open the form here
         </a>
         .
       </div>
