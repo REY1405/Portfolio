@@ -115,6 +115,9 @@ export default function Home() {
               ))}
             </div>
           </section>
+          
+          {/* --- ADD LIVE DEMO HERE --- */}
+          <LiveDemo />          
 
           {/* Work Experience section */}
           <section id="experience" className="py-12">
