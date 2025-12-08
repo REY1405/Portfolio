@@ -57,7 +57,7 @@ const projects = [
 ];
 
 export default function Home() {
-  const mediumUrl = "https://medium.com/";
+  const mediumUrl = "https://medium.com/@kathal.rishi/";
 
   return (
     <>
