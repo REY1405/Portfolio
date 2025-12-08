@@ -86,9 +86,9 @@ export default function Home() {
 
           <section id="contact" className="py-8">
             <h2 className="text-2xl font-bold">Contact</h2>
-            <p className="text-slate-600 mt-2">Want to hire or collaborate? Message me below or email at <a className="text-indigo-600" href="mailto:kathal.rishi@gmail.com">kathal.rishi@gmail.com</a>.</p>
+            <p className="text-slate-600 mt-2">Want to hire or collaborate? Use the embedded Google Form below or email me at <a className="text-indigo-600" href="mailto:kathal.rishi@gmail.com">kathal.rishi@gmail.com</a>.</p>
 
-            <div className="mt-6 max-w-2xl">
+            <div className="mt-6 max-w-3xl">
               <ContactForm />
             </div>
           </section>
@@ -100,43 +100,37 @@ export default function Home() {
   )
 }
 
-function ContactForm(){
+/**
+ * ContactForm
+ * Option C: embedded Google Form (responsive iframe) + fallback link.
+ * Replaces the previous fetch-based contact form.
+ */
+function ContactForm() {
+  const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScK6_u2NRVkJeVnYWEAOJetln_5HPfcwQWGt_tLe0YtfJLeVw/viewform?embedded=true"
+  const fallbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLScK6_u2NRVkJeVnYWEAOJetln_5HPfcwQWGt_tLe0YtfJLeVw/viewform"
+
   return (
-    <form id="contact-form" onSubmit={async (e)=>{
-      e.preventDefault();
-      const data = new FormData(e.target);
-      const payload = {
-        name: data.get('name'),
-        email: data.get('email'),
-        message: data.get('message')
-      };
-      const btn = document.getElementById('send-btn');
-      btn.disabled = true;
-      btn.innerText = 'Sending...';
-      try {
-        const res = await fetch('/api/contact', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
-        const json = await res.json();
-        if(res.ok) {
-          alert('Message sent — thanks!');
-          e.target.reset();
-        } else {
-          alert('Send failed: ' + (json.error || res.statusText));
-        }
-      } catch(err){
-        alert('Send failed: ' + err.message);
-      } finally {
-        btn.disabled = false;
-        btn.innerText = 'Send';
-      }
-    }}>
-      <div className="grid gap-3 md:grid-cols-2">
-        <input name="name" required placeholder="Your name" className="border rounded px-3 py-2" />
-        <input name="email" type="email" required placeholder="Email" className="border rounded px-3 py-2" />
-        <textarea name="message" required rows="5" placeholder="Message" className="border rounded px-3 py-2 md:col-span-2"></textarea>
+    <div className="w-full">
+      {/* Responsive iframe wrapper */}
+      <div style={{ position: 'relative', paddingBottom: '120%', height: 0, overflow: 'hidden', borderRadius: 12 }} className="shadow">
+        <iframe
+          src={formUrl}
+          width="100%"
+          height="1000"
+          style={{ position: 'absolute', top: 0, left: 0, border: 0 }}
+          frameBorder="0"
+          marginHeight="0"
+          marginWidth="0"
+          title="Contact form"
+          className="rounded-xl"
+        >
+          Loading…
+        </iframe>
       </div>
-      <div className="mt-3">
-        <button id="send-btn" type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded">Send</button>
+
+      <div className="mt-3 text-sm text-slate-500">
+        If the form doesn't load here, <a href={fallbackUrl} target="_blank" rel="noreferrer" className="text-indigo-600">open it in a new tab</a>.
       </div>
-    </form>
+    </div>
   )
 }
