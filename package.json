@@ -1,21 +1,23 @@
 {
-  "name": "rishi-portfolio-rollback",
+  "name": "rishi-devops-portfolio-modern",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "next": "14.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "framer-motion": "^10.12.16"
+    "framer-motion": "^10.12.16",
+    "nodemailer": "^6.9.5"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.1",
+    "autoprefixer": "10.4.14",
     "postcss": "8.4.24",
-    "autoprefixer": "10.4.14"
+    "tailwindcss": "^3.4.1"
   }
 }
