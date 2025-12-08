@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <g fill="#fff" font-family="Arial, sans-serif">
+    <text x="60" y="200" font-size="64" font-weight="700">Rishi Kathal</text>
+    <text x="60" y="280" font-size="36">DevOps · SRE · Kubernetes · Observability</text>
+    <text x="60" y="420" font-size="28" fill="#EBF8FF">kathal.rishi@gmail.com</text>
+  </g>
+</svg>
