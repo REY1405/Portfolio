@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portfolio-demo
+  template:
+    metadata:
+      labels:
+        app: portfolio-demo
+    spec:
+      containers:
+        - name: web
+          image: nginx:stable
+          ports:
+            - containerPort: 80

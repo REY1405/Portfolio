@@ -1,0 +1,1 @@
+This folder contains notes and sample Terraform modules for provisioning cloud infra (VPC, EKS, IAM roles) — intentionally omitted heavy TF code here. If you want, I can scaffold a minimal terraform module to create an EKS cluster and Karpenter resources.
