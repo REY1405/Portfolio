@@ -230,24 +230,23 @@ function Avatar() {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div style={{ width: 48, height: 48 }} className="relative">
+    <div className="relative">
       {!imgError ? (
-        // image from public folder; name: rishi.jpg (place inside public/)
-        // onError sets fallback
         <img
           src="/rishi.jpg"
           alt="Rishi Kathal"
-          className="w-12 h-12 rounded-full object-cover shadow"
+          className="w-16 h-16 rounded-full object-cover shadow"  // WAS w-12 h-12
           onError={() => setImgError(true)}
         />
       ) : (
-        <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-indigo-600 to-cyan-400 text-white font-bold">
+        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-indigo-600 to-cyan-400 text-white font-bold text-xl">
           RK
         </div>
       )}
     </div>
   );
 }
+
 
 /* ProfileCard: small highlighted box next to hero */
 function ProfileCard() {
