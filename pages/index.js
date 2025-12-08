@@ -1,142 +1,76 @@
 import Head from 'next/head'
+import Nav from '../components/Nav'
+import Footer from '../components/Footer'
+import ProjectCard from '../components/ProjectCard'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 
 const projects = [
-  {
-    title: 'Kubernetes NGINX (KinD)',
-    desc: 'K8s manifests with Kustomize overlays, sealed-secrets, and GitHub Actions KinD tests.',
-    repo: '#'
-  },
-  {
-    title: 'Observability (SigNoz + OTel)',
-    desc: 'Instrumented Java service with traces, metrics and dashboards.',
-    repo: '#'
-  },
-  {
-    title: 'EKS + Karpenter (Terraform)',
-    desc: 'Terraform modules to provision EKS and Karpenter autoscaling.',
-    repo: '#'
-  }
+  { title: 'Kubernetes NGINX (KinD)', desc: 'K8s manifests with Kustomize overlays, sealed-secrets, GitHub Actions.', link: '/projects/nginx', tags:['Kubernetes','Kustomize'] },
+  { title: 'Observability (SigNoz + OTel)', desc: 'Instrumented Java service with dashboards and SLOs.', link: '/projects/observability', tags:['OpenTelemetry','SigNoz'] },
+  { title: 'EKS + Karpenter (Terraform)', desc: 'Terraform modules, Karpenter provisioner and cost-aware autoscaling.', link: '/projects/eks', tags:['Terraform','Karpenter'] }
 ]
 
-export default function Home() {
+export default function Home(){
+  const formId = "YOUR_FORM_ID_HERE" // replace this with your Google Form ID
+
   return (
     <>
       <Head>
         <title>Rishi Kathal — DevOps & SRE</title>
-        <meta name="description" content="DevOps / SRE engineer — Kubernetes, GitOps, CI/CD, Observability. Contact kathal.rishi@gmail.com" />
+        <meta name="description" content="Rishi Kathal — DevOps / SRE portfolio. Kubernetes, GitOps, CI/CD, Observability." />
         <meta property="og:image" content="/og-image.svg" />
       </Head>
-
-      <div className="min-h-screen">
-        <header className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-indigo-600 to-cyan-400 text-white font-bold">RK</div>
-            <div>
-              <div className="text-sm font-semibold">Rishi Kathal</div>
-              <div className="text-xs text-slate-500">DevOps · SRE · Cloud</div>
+      <Nav />
+      <main className="pt-28 max-w-6xl mx-auto px-6">
+        <section className="grid md:grid-cols-2 gap-8 items-center py-12">
+          <motion.div initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.6}}>
+            <h1 className="text-4xl md:text-5xl font-extrabold">Hi, I’m <span className="text-primary-500">Rishi</span>. I build reliable cloud platforms.</h1>
+            <p className="mt-4 text-lg text-slate-600">DevOps & SRE engineer — Kubernetes, GitOps, Terraform, Observability. I ship infrastructure-as-code and production-ready CI/CD pipelines.</p>
+            <div className="mt-6 flex gap-3">
+              <a href="#projects" className="bg-primary-500 text-white px-4 py-2 rounded-lg">See Projects</a>
+              <a href="#contact" className="border px-4 py-2 rounded-lg">Contact</a>
             </div>
+          </motion.div>
+          <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.8}} className="p-6 bg-white rounded-2xl shadow floating">
+            <div className="text-sm text-slate-500">Highlighted</div>
+            <h3 className="mt-2 font-semibold text-xl">Full-stack DevOps demos</h3>
+            <p className="mt-2 text-sm text-slate-600">Infra, CI/CD, observability and cost-control — with runnable demos.</p>
+          </motion.div>
+        </section>
+
+        <section id="projects" className="py-8">
+          <h2 className="text-2xl font-bold">Projects</h2>
+          <div className="mt-6 grid md:grid-cols-3 gap-6">
+            {projects.map(p=> <ProjectCard key={p.title} {...p} />)}
           </div>
+        </section>
 
-          <nav className="flex items-center gap-4">
-            <a href="#projects" className="text-sm hover:underline">Projects</a>
-            <a href="#contact" className="text-sm hover:underline">Contact</a>
-            <a href="https://www.linkedin.com/in/rishi-kathal-40412814b" target="_blank" rel="noreferrer" className="text-sm px-3 py-1 bg-slate-100 rounded">LinkedIn</a>
-          </nav>
-        </header>
+        <section id="blog" className="py-12">
+          <h2 className="text-2xl font-bold">Blog</h2>
+          <p className="mt-2 text-slate-600">Short writeups and postmortems — sample posts included.</p>
+        </section>
 
-        <main className="max-w-6xl mx-auto px-6">
-          <section className="grid md:grid-cols-2 gap-8 items-center py-12">
-            <motion.div initial={{opacity:0, x:-20}} animate={{opacity:1, x:0}} transition={{duration:0.6}} className="fade-up">
-              <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">Hi, I’m <span style={{color:'#6366F1'}}>Rishi</span>. I make cloud systems reliable and observable.</h1>
-              <p className="mt-4 text-lg text-slate-600">I focus on Kubernetes, GitOps, CI/CD automation, observability and cost optimisation. Below are projects with code and infra you can clone.</p>
+        <section id="contact" className="py-12 max-w-2xl">
+          <h2 className="text-2xl font-bold">Contact</h2>
+          <p className="mt-2 text-slate-600">Use the form below to reach me — responses go to Google Forms/Sheets.</p>
 
-              <div className="mt-6 flex gap-3">
-                <a href="#projects" className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg shadow">See Projects</a>
-                <a href="#contact" className="inline-flex items-center gap-2 border border-slate-200 px-4 py-2 rounded-lg">Contact</a>
-              </div>
-            </motion.div>
-
-            <motion.div initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.8}} className="hero-card p-6 rounded-2xl bg-white shadow floating">
-              <div className="text-sm text-slate-500">Highlighted</div>
-              <h3 className="mt-2 font-semibold text-xl">Kubernetes NGINX + SigNoz + EKS + CI</h3>
-              <p className="mt-2 text-sm text-slate-600">A full-stack demo showcasing infra-as-code, observability and cost-aware autoscaling.</p>
-              <div className="mt-4 flex gap-2">
-                <a className="text-sm text-indigo-600 hover:underline" href="#">View code</a>
-                <a className="text-sm border px-3 py-1 rounded" href="#">Live demo</a>
-              </div>
-            </motion.div>
-          </section>
-
-          <section id="projects" className="py-8">
-            <h2 className="text-2xl font-bold">Projects</h2>
-            <div className="mt-6 grid md:grid-cols-3 gap-6">
-              {projects.map((p, i) => (
-                <motion.article key={p.title} whileHover={{scale:1.02}} className="p-5 bg-white rounded-2xl shadow border">
-                  <h3 className="font-semibold">{p.title}</h3>
-                  <p className="mt-2 text-sm text-slate-600">{p.desc}</p>
-                  <div className="mt-4">
-                    <a className="text-sm text-indigo-600 hover:underline" href={p.repo}>GitHub</a>
-                  </div>
-                </motion.article>
-              ))}
+          <div className="mt-6">
+            <div style={{position:'relative', paddingBottom:'66.66%', height:0, overflow:'hidden', borderRadius:12}} className="shadow">
+              <iframe
+                src={`https://docs.google.com/forms/d/e/${formId}/viewform?embedded=true`}
+                width="100%" height="100%"
+                style={{position:'absolute', top:0, left:0, border:0}}
+                frameBorder="0" marginHeight="0" marginWidth="0"
+                title="Contact form"
+              />
             </div>
-          </section>
 
-          <section id="contact" className="py-8">
-            <h2 className="text-2xl font-bold">Contact</h2>
-            <p className="text-slate-600 mt-2">Want to hire or collaborate? Message me below or email at <a className="text-indigo-600" href="mailto:kathal.rishi@gmail.com">kathal.rishi@gmail.com</a>.</p>
+            <div className="mt-3 text-sm text-slate-500">If the form doesn't load, <a href={`https://docs.google.com/forms/d/e/${formId}/viewform`} target="_blank" rel="noreferrer" className="text-indigo-600">open it in a new tab</a>.</div>
+          </div>
+        </section>
 
-            <div className="mt-6 max-w-2xl">
-              <ContactForm />
-            </div>
-          </section>
-
-          <footer className="py-12 text-center text-sm text-slate-400">© {new Date().getFullYear()} Rishi Kathal — Built with ❤️ • Hosted on Vercel</footer>
-        </main>
-      </div>
+        <Footer />
+      </main>
     </>
-  )
-}
-
-function ContactForm(){
-  return (
-    <form id="contact-form" onSubmit={async (e)=>{
-      e.preventDefault();
-      const data = new FormData(e.target);
-      const payload = {
-        name: data.get('name'),
-        email: data.get('email'),
-        message: data.get('message')
-      };
-      const btn = document.getElementById('send-btn');
-      btn.disabled = true;
-      btn.innerText = 'Sending...';
-      try {
-        const res = await fetch('/api/contact', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
-        const json = await res.json();
-        if(res.ok) {
-          alert('Message sent — thanks!');
-          e.target.reset();
-        } else {
-          alert('Send failed: ' + (json.error || res.statusText));
-        }
-      } catch(err){
-        alert('Send failed: ' + err.message);
-      } finally {
-        btn.disabled = false;
-        btn.innerText = 'Send';
-      }
-    }}>
-      <div className="grid gap-3 md:grid-cols-2">
-        <input name="name" required placeholder="Your name" className="border rounded px-3 py-2" />
-        <input name="email" type="email" required placeholder="Email" className="border rounded px-3 py-2" />
-        <textarea name="message" required rows="5" placeholder="Message" className="border rounded px-3 py-2 md:col-span-2"></textarea>
-      </div>
-      <div className="mt-3">
-        <button id="send-btn" type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded">Send</button>
-      </div>
-    </form>
   )
 }
