@@ -2,6 +2,10 @@ import Head from "next/head";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import dynamic from 'next/dynamic';
+
+const LiveDemo = dynamic(() => import('../components/LiveDemo'), { ssr: false });
+
 
 const projects = [
   {
@@ -115,7 +119,7 @@ export default function Home() {
               ))}
             </div>
           </section>
-          
+
           {/* --- ADD LIVE DEMO HERE --- */}
           <LiveDemo />          
 
