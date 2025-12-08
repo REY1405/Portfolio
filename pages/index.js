@@ -42,6 +42,7 @@ export default function Home() {
           <nav className="flex items-center gap-4">
             <a href="#projects" className="text-sm hover:underline">Projects</a>
             <a href="#contact" className="text-sm hover:underline">Contact</a>
+            <a href="/resume.pdf" download className="text-sm px-3 py-1 bg-slate-100 rounded">Resume</a>
             <a href="https://www.linkedin.com/in/rishi-kathal-40412814b" target="_blank" rel="noreferrer" className="text-sm px-3 py-1 bg-slate-100 rounded">LinkedIn</a>
           </nav>
         </header>
