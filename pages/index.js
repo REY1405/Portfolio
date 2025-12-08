@@ -11,8 +11,6 @@ const projects = [
 ]
 
 export default function Home(){
-  const formId = "YOUR_FORM_ID_HERE" // replace this with your Google Form ID
-
   return (
     <>
       <Head>
@@ -23,7 +21,7 @@ export default function Home(){
       <Nav />
       <main className="pt-28 max-w-6xl mx-auto px-6">
         <section className="grid md:grid-cols-2 gap-8 items-center py-12">
-          <motion.div initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.6}}>
+          <motion.div initial={opacity:0,x:-20} animate={opacity:1,x:0} transition={duration:0.6}>
             <h1 className="text-4xl md:text-5xl font-extrabold">Hi, I’m <span className="text-primary-500">Rishi</span>. I build reliable cloud platforms.</h1>
             <p className="mt-4 text-lg text-slate-600">DevOps & SRE engineer — Kubernetes, GitOps, Terraform, Observability. I ship infrastructure-as-code and production-ready CI/CD pipelines.</p>
             <div className="mt-6 flex gap-3">
@@ -31,7 +29,7 @@ export default function Home(){
               <a href="#contact" className="border px-4 py-2 rounded-lg">Contact</a>
             </div>
           </motion.div>
-          <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.8}} className="p-6 bg-white rounded-2xl shadow floating">
+          <motion.div initial={opacity:0,y:20} animate={opacity:1,y:0} transition={duration:0.8} className="p-6 bg-white rounded-2xl shadow floating">
             <div className="text-sm text-slate-500">Highlighted</div>
             <h3 className="mt-2 font-semibold text-xl">Full-stack DevOps demos</h3>
             <p className="mt-2 text-sm text-slate-600">Infra, CI/CD, observability and cost-control — with runnable demos.</p>
@@ -52,20 +50,13 @@ export default function Home(){
 
         <section id="contact" className="py-12 max-w-2xl">
           <h2 className="text-2xl font-bold">Contact</h2>
-          <p className="mt-2 text-slate-600">Use the form below to reach me — responses go to Google Forms/Sheets.</p>
+          <p className="mt-2 text-slate-600">I prefer messages via Google Form — quick and reliable.</p>
 
           <div className="mt-6">
-            <div style={{position:'relative', paddingBottom:'66.66%', height:0, overflow:'hidden', borderRadius:12}} className="shadow">
-              <iframe
-                src={`https://docs.google.com/forms/d/e/${formId}/viewform?embedded=true`}
-                width="100%" height="100%"
-                style={{position:'absolute', top:0, left:0, border:0}}
-                frameBorder="0" marginHeight="0" marginWidth="0"
-                title="Contact form"
-              />
-            </div>
-
-            <div className="mt-3 text-sm text-slate-500">If the form doesn't load, <a href={`https://docs.google.com/forms/d/e/${formId}/viewform`} target="_blank" rel="noreferrer" className="text-indigo-600">open it in a new tab</a>.</div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScK6_u2NRVkJeVnYWEAOJetln_5HPfcwQWGt_tLe0YtfJLeVw/viewform?usp=publish-editor" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-primary-500 text-white px-4 py-2 rounded-lg">
+              Open Contact Form
+            </a>
+            <p className="mt-3 text-sm text-slate-500">This opens a Google Form in a new tab.</p>
           </div>
         </section>
 
