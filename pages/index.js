@@ -1,26 +1,19 @@
 // pages/index.js
 import Head from "next/head";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
 /**
- * Safe dynamic import:
- * - attempts to load default export
- * - then tries a named export LiveDemo
- * - otherwise falls back to a harmless placeholder component
- *
- * This prevents React from receiving an object instead of a component.
+ * Safe dynamic import for LiveDemo:
+ * - tries default export, then named LiveDemo
+ * - falls back to a harmless placeholder component
+ * - SSR disabled because LiveDemo uses client-only APIs
  */
 const LiveDemo = dynamic(
   () =>
     import("../components/LiveDemo").then((mod) => {
-      // Try default -> named -> null-component
-      if (mod && (mod.default || mod.LiveDemo)) {
-        return mod.default || mod.LiveDemo;
-      }
-      // fallback harmless component
+      if (mod && (mod.default || mod.LiveDemo)) return mod.default || mod.LiveDemo;
       return function PlaceholderLiveDemo() {
         return (
           <div className="py-12">
@@ -34,7 +27,7 @@ const LiveDemo = dynamic(
   { ssr: false }
 );
 
-/* ClientOnly: renders children only after client mount to avoid hydration mismatches */
+/* ClientOnly: renders children only after client mount (prevents hydration mismatch) */
 function ClientOnly({ children, fallback = null }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -42,7 +35,7 @@ function ClientOnly({ children, fallback = null }) {
 }
 
 /* --------------------------
-   Page content starts here
+   Content / Data
    -------------------------- */
 
 const projects = [
@@ -64,7 +57,6 @@ const projects = [
 ];
 
 export default function Home() {
-  // add your Medium profile if you want
   const mediumUrl = "https://medium.com/";
 
   return (
@@ -240,7 +232,7 @@ export default function Home() {
 }
 
 /* --------------------------
-   Header and Avatar
+   Header & Avatar
    -------------------------- */
 
 function Header({ mediumUrl }) {
@@ -323,7 +315,7 @@ function ProfileCard() {
 }
 
 /* --------------------------
-   Google Form embed
+   Google Form embed (complete)
    -------------------------- */
 function EmbeddedGoogleForm() {
   const formEmbeddedUrl =
