@@ -42,7 +42,7 @@ const projects = [
   {
     title: "Kubernetes NGINX",
     desc: "K8s manifests with Kustomize overlays, sealed-secrets, and GitHub Actions tests.",
-    repo: "#",
+    repo: "https://github.com/REY1405/Devops_Projects",
   },
   {
     title: "Observability (SigNoz + OTel)",
@@ -87,7 +87,7 @@ export default function Home() {
               </h1>
 
               <p className="mt-4 text-lg text-slate-600">
-                I focus on Kubernetes, GitOps, CI/CD automation, observability and cost
+                I focus on Kubernetes, Iac, Cms, GitOps, CI/CD automation, observability and cost
                 optimisation. Below are projects with code and infra you can clone.
               </p>
 
