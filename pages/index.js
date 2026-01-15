@@ -58,19 +58,20 @@ const projects = [
 
 const certifications = [
   {
+    name: "Microsoft Certified: Azure Fundamentals",
+    issuer: "Microsoft",
+    year: "2022",
+    badge: "/badges/microsoft-certified-azure-fundamentals.png",
+    link: "https://www.credly.com/badges/303ab42f-60c2-4bb7-b2fc-241e3f133e2d/public_url",
+  },  
+  {
     name: "AWS Certified Solutions Architect – Associate",
     issuer: "Amazon Web Services",
     year: "2026",
     badge: "/badges/aws-certified-solutions-architect-associate.png",
     link: "https://www.credly.com/badges/97bda21f-7289-4daa-91f5-7288d14c5d45/public_url",
   }
-  // {
-  //   name: "Certified Kubernetes Administrator (CKA)",
-  //   issuer: "CNCF",
-  //   year: "2023",
-  //   badge: "/badges/cka.png",
-  //   link: "#",
-  // },
+
   // {
   //   name: "HashiCorp Terraform Associate",
   //   issuer: "HashiCorp",
